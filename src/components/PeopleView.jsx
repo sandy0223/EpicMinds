@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PersonCard from './PersonCard';
 import { FiPlus, FiSave, FiX } from 'react-icons/fi';
+import './PeopleView.css';
 
 export default function PeopleView() {
   const [people, setPeople] = useState([]);
@@ -35,52 +36,45 @@ export default function PeopleView() {
   };
 
   const handleDelete = id => {
-    if (window.confirm('Are you sure to delete this user?')) {
+    if (window.confirm('Are you sure you want to delete this member?')) {
       setPeople(prev => prev.filter(p => p.id !== id));
     }
   };
 
   return (
-    <div className="space-y-8">
+    <div className="people-container">
       {/* Form Section */}
-      <div className="bg-white border border-gray-200 p-6 rounded-xl shadow-sm">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">👥 Manage People</h2>
-        <div className="space-y-4">
+      <div className="form-card animate-slideUp">
+        <h2 className="form-title">👥 Manage Team Members</h2>
+        <div className="form-fields">
           <input
             type="text"
             placeholder="Full Name"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
             value={form.name}
             onChange={e => setForm(prev => ({ ...prev, name: e.target.value }))}
           />
           <input
             type="email"
             placeholder="Email Address"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
             value={form.email}
             onChange={e => setForm(prev => ({ ...prev, email: e.target.value }))}
           />
           <input
             type="text"
             placeholder="Avatar URL"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
             value={form.avatar}
             onChange={e => setForm(prev => ({ ...prev, avatar: e.target.value }))}
           />
           <input
             type="text"
             placeholder="Role"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
             value={form.role}
             onChange={e => setForm(prev => ({ ...prev, role: e.target.value }))}
           />
 
           {editingPerson ? (
-            <div className="flex gap-4">
-              <button
-                onClick={handleUpdate}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow-sm transition"
-              >
+            <div className="button-group">
+              <button onClick={handleUpdate} className="btn save">
                 <FiSave /> Update
               </button>
               <button
@@ -88,33 +82,31 @@ export default function PeopleView() {
                   setEditingPerson(null);
                   resetForm();
                 }}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded-lg shadow-sm transition"
+                className="btn cancel"
               >
                 <FiX /> Cancel
               </button>
             </div>
           ) : (
-            <button
-              onClick={handleCreate}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow-sm transition"
-            >
-              <FiPlus /> Create Person
+            <button onClick={handleCreate} className="btn create">
+              <FiPlus /> Add Member
             </button>
           )}
         </div>
       </div>
 
       {/* People Grid */}
-      <div>
-        <h3 className="text-lg font-semibold mb-4 text-gray-700">Team Members</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="members-section">
+        <h3 className="section-title">✨ Team Members</h3>
+        <div className="members-grid">
           {people.map(person => (
-            <PersonCard
-              key={person.id}
-              person={person}
-              onEdit={() => handleEdit(person)}
-              onDelete={() => handleDelete(person.id)}
-            />
+            <div className="fade-in" key={person.id}>
+              <PersonCard
+                person={person}
+                onEdit={() => handleEdit(person)}
+                onDelete={() => handleDelete(person.id)}
+              />
+            </div>
           ))}
         </div>
       </div>

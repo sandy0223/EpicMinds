@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FileItem from './FileItem';
+import { FiPlus, FiSave, FiX, FiUpload } from 'react-icons/fi';
+import './FileView.css';
 
 export default function FileView() {
   const [files, setFiles] = useState([]);
@@ -40,68 +42,68 @@ export default function FileView() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow-card">
-        <h2 className="text-xl font-semibold mb-4">Manage Files</h2>
-        <div className="space-y-4">
+    <div className="file-view">
+      {/* Upload / Edit Form */}
+      <div className="form-card">
+        <h2 className="form-title">📂 Manage Files</h2>
+        <div className="form-fields">
           <input
             type="text"
             placeholder="File Name"
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
+            className="form-input"
             value={form.filename}
             onChange={e => setForm(prev => ({ ...prev, filename: e.target.value }))}
           />
           <input
             type="text"
             placeholder="Size (e.g. 1.2MB)"
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
+            className="form-input"
             value={form.size}
             onChange={e => setForm(prev => ({ ...prev, size: e.target.value }))}
           />
           <input
             type="date"
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
+            className="form-input"
             value={form.uploadedAt}
             onChange={e => setForm(prev => ({ ...prev, uploadedAt: e.target.value }))}
           />
+
           {editingFile ? (
-            <div className="flex space-x-4">
-              <button
-                onClick={handleUpdate}
-                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-              >
-                Update
+            <div className="btn-group">
+              <button onClick={handleUpdate} className="btn save">
+                <FiSave /> Update
               </button>
               <button
                 onClick={() => {
                   setEditingFile(null);
                   resetForm();
                 }}
-                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition"
+                className="btn cancel"
               >
-                Cancel
+                <FiX /> Cancel
               </button>
             </div>
           ) : (
-            <button
-              onClick={handleUpload}
-              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-600 transition"
-            >
-              Upload File
+            <button onClick={handleUpload} className="btn upload">
+              <FiUpload /> Upload File
             </button>
           )}
         </div>
       </div>
 
-      <div className="space-y-4">
-        {files.map(file => (
-          <FileItem
-            key={file.id}
-            file={file}
-            onEdit={() => handleEdit(file)}
-            onDelete={() => handleDelete(file.id)}
-          />
-        ))}
+      {/* File List */}
+      <div className="file-list">
+        <h3 className="list-title">📑 Uploaded Files</h3>
+        <div className="list-container">
+          {files.map(file => (
+            <FileItem
+              key={file.id}
+              file={file}
+              onEdit={() => handleEdit(file)}
+              onDelete={() => handleDelete(file.id)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

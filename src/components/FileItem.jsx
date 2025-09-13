@@ -1,25 +1,27 @@
 import React from 'react';
+import { FiEdit2, FiTrash2, FiFile } from 'react-icons/fi';
+import './FileItem.css';
 
 export default function FileItem({ file, onEdit, onDelete }) {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-card flex items-center justify-between hover:shadow-xl transition-shadow transform hover:scale-[1.01]">
-      <div>
-        <h4 className="text-lg font-medium">{file.filename}</h4>
-        <p className="text-gray-500 text-sm">Size: {file.size}</p>
-        <p className="text-gray-400 text-xs">Uploaded: {file.uploadedAt}</p>
+    <div className="file-card">
+      <div className="file-info">
+        <div className="file-icon">
+          <FiFile />
+        </div>
+        <div>
+          <h4 className="file-name">{file.filename}</h4>
+          <p className="file-size">📦 {file.size}</p>
+          <p className="file-date">⏰ {file.uploadedAt}</p>
+        </div>
       </div>
-      <div className="space-x-2">
-        <button
-          onClick={onEdit}
-          className="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition"
-        >
-          Edit
+
+      <div className="file-actions">
+        <button onClick={onEdit} className="btn edit">
+          <FiEdit2 /> Edit
         </button>
-        <button
-          onClick={onDelete}
-          className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-        >
-          Delete
+        <button onClick={onDelete} className="btn delete">
+          <FiTrash2 /> Delete
         </button>
       </div>
     </div>
