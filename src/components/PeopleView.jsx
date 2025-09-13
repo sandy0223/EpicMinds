@@ -17,6 +17,10 @@ export default function PeopleView() {
   const resetForm = () => setForm({ name: '', email: '', avatar: '', role: '' });
 
   const handleCreate = () => {
+    if(!form.name || !form.email) {
+      alert("Name and Email are required!");
+      return;
+    }
     const newPerson = { id: Date.now(), ...form };
     setPeople(prev => [newPerson, ...prev]);
     resetForm();
@@ -60,10 +64,11 @@ export default function PeopleView() {
             onChange={e => setForm(prev => ({ ...prev, email: e.target.value }))}
           />
           <input
-            type="text"
-            placeholder="Avatar URL"
-            value={form.avatar}
-            onChange={e => setForm(prev => ({ ...prev, avatar: e.target.value }))}
+            type="file"
+            accept="image/*"
+            onChange={e => setForm(prev => ({ ...prev, avatar: URL.createObjectURL(e.target.files[0]) }))}
+            className="avatar-input"
+
           />
           <input
             type="text"

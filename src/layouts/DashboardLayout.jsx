@@ -9,7 +9,6 @@ const DashboardLayout = () => {
 
   return (
     <div className="dashboard-layout">
-      {/* Mobile Toggle Button */}
       <button
         className="menu-toggle"
         onClick={() => setSidebarOpen(!isSidebarOpen)}

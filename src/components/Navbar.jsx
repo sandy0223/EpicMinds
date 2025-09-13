@@ -10,7 +10,7 @@ export default function Navbar() {
     <div className="w-64 h-screen bg-gradient-to-b from-indigo-600 to-purple-700 text-white shadow-xl flex flex-col p-6">
       {/* Header */}
       <div className="mb-12">
-        <h1 className="text-3xl font-extrabold tracking-wide">🚀 Dashboard</h1>
+        <h1 className="text-3xl font-extrabold tracking-wide">Dashboard</h1>
         <p className="text-gray-200 mt-2 text-sm">Welcome, <span className="font-semibold">{user.username}</span></p>
       </div>
 

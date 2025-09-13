@@ -36,6 +36,10 @@
   transition: all 0.3s ease;
 }
 
+.form-fields input::placeholder {
+  color: #6b7280;
+}
+
 .form-fields input:focus {
   border-color: #3b82f6;
   outline: none;
