@@ -40,7 +40,7 @@ export default function Login() {
       )}
 
       <div className="login-card">
-        <h2 className="login-title">Admin Login</h2>
+        <h2 className="login-title bebas-neue-regular">Admin Login</h2>
         <form onSubmit={onSubmit} className="login-form">
           {/* Username */}
           <div className="login-field">
@@ -80,7 +80,7 @@ export default function Login() {
 
         {/* Footer */}
         <p className="login-footer">
-          © {new Date().getFullYear()} Dashboard Inc. All rights reserved.
+          © {new Date().getFullYear()} EpicMinds Inc. All rights reserved.
         </p>
       </div>
     </div>
