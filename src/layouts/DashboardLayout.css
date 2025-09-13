@@ -1,0 +1,63 @@
+
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh; /* always at least full height */
+  height: 100vh;     /* force full height */
+  background: #f9fafb; /* gray-50 */
+  overflow: hidden; 
+  margin:10px;
+  border-radius:20px; /* prevent scrollbars caused by sidebar */
+}
+
+/* Sidebar will take its own width, main takes rest */
+.dashboard-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #f9fafb, #eef2ff);
+  animation: fadeIn 0.6s ease-in-out;
+  overflow-y: auto; /* scroll if content exceeds */
+
+}
+
+/* Mobile Menu Button */
+.menu-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 60;
+  background: #4f46e5; /* indigo-600 */
+  color: #fff;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: background 0.3s ease;
+}
+
+.menu-toggle:hover {
+  background: #4338ca; /* indigo-700 */
+}
+
+/* Hide menu button on desktop */
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
