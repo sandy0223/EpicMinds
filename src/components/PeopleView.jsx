@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PersonCard from './PersonCard';
 import { FiPlus, FiSave, FiX } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './PeopleView.css';
 
 export default function PeopleView() {
   const [people, setPeople] = useState([]);
   const [editingPerson, setEditingPerson] = useState(null);
+  const [formVisible, setFormVisible] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', avatar: '', role: '' });
 
   useEffect(() => {
@@ -17,39 +20,67 @@ export default function PeopleView() {
   const resetForm = () => setForm({ name: '', email: '', avatar: '', role: '' });
 
   const handleCreate = () => {
-    if(!form.name || !form.email) {
-      alert("Name and Email are required!");
+    if (!form.name || !form.email) {
+      toast.error("Name and Email are required!");
       return;
     }
     const newPerson = { id: Date.now(), ...form };
     setPeople(prev => [newPerson, ...prev]);
+    toast.success("Member added successfully!");
     resetForm();
+    setFormVisible(false); // collapse form after creation
   };
 
   const handleEdit = person => {
     setEditingPerson(person);
     setForm({ name: person.name, email: person.email, avatar: person.avatar, role: person.role });
+    setFormVisible(true);
   };
 
   const handleUpdate = () => {
     setPeople(prev =>
       prev.map(p => (p.id === editingPerson.id ? { ...p, ...form } : p))
     );
+    toast.info("Member updated successfully!");
     setEditingPerson(null);
     resetForm();
+    setFormVisible(false);
   };
 
   const handleDelete = id => {
     if (window.confirm('Are you sure you want to delete this member?')) {
       setPeople(prev => prev.filter(p => p.id !== id));
+      toast.warn("Member deleted!");
     }
   };
 
   return (
     <div className="people-container">
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+
+      {/* Toggle Form Button */}
+      {!formVisible && !editingPerson && (
+        <button className="btn create w-full max-w-xs mb-4" onClick={() => setFormVisible(true)}>
+          <FiPlus /> Add Member
+        </button>
+      )}
+
       {/* Form Section */}
-      <div className="form-card animate-slideUp">
-        <h2 className="form-title">👥 Manage Team Members</h2>
+      <div className={`form-card ${formVisible ? 'slide-down' : 'slide-up'}`}>
+         {/* Close Button */}
+  {formVisible && (
+    <button
+      className="form-close-btn"
+      onClick={() => {
+        setFormVisible(false);
+        setEditingPerson(null);
+        resetForm();
+      }}
+    >
+      <FiX size={20} />
+    </button>
+  )}
+        <h2 className="form-title">👥 {editingPerson ? 'Edit Member' : 'Add Member'}</h2>
         <div className="form-fields">
           <input
             type="text"
@@ -66,9 +97,10 @@ export default function PeopleView() {
           <input
             type="file"
             accept="image/*"
-            onChange={e => setForm(prev => ({ ...prev, avatar: URL.createObjectURL(e.target.files[0]) }))}
+            onChange={e =>
+              setForm(prev => ({ ...prev, avatar: URL.createObjectURL(e.target.files[0]) }))
+            }
             className="avatar-input"
-
           />
           <input
             type="text"
@@ -86,6 +118,7 @@ export default function PeopleView() {
                 onClick={() => {
                   setEditingPerson(null);
                   resetForm();
+                  setFormVisible(false);
                 }}
                 className="btn cancel"
               >

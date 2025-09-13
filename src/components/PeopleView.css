@@ -13,6 +13,21 @@
   border-radius: 1rem;
   box-shadow: 0 6px 16px rgba(0,0,0,0.1);
   backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
+}
+
+/* Slide animations for dropdown */
+.form-card.slide-up {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 1.5rem;
+}
+
+.form-card.slide-down {
+  max-height: 500px; /* large enough to fit form */
+  opacity: 1;
+  padding: 1.5rem;
 }
 
 .form-title {
@@ -89,6 +104,22 @@
   background: #6b7280;
 }
 
+.form-close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.3s ease;
+}
+
+.form-close-btn:hover {
+  color: #111827;
+}
+
+
 /* Members Section */
 .members-section {
   margin-top: 1rem;
@@ -147,5 +178,8 @@
   .btn {
     flex: 1;
     justify-content: center;
+  }
+  .members-grid {
+    grid-template-columns: 1fr;
   }
 }
