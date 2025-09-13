@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "email": "alice@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=1",
+    "role": "Manager"
+  },
+  {
+    "id": 2,
+    "name": "Bob Smith",
+    "email": "bob@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=2",
+    "role": "Developer"
+  },
+  {
+    "id": 3,
+    "name": "Carol Davis",
+    "email": "carol@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=3",
+    "role": "Designer"
+  }
+]
